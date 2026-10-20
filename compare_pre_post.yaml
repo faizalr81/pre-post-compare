@@ -1,0 +1,102 @@
+---
+- name: Compare Junos PRE and POST activity results
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    pre_file: "{{ playbook_dir }}/pre_activity.txt"
+    post_file: "{{ playbook_dir }}/post_activity.txt"
+    comparator: "{{ playbook_dir }}/junos_pre_post_compare.py"
+    report_directory: "{{ playbook_dir }}"
+    report_prefix: "{{ report_directory }}/junos_pre_post_report"
+
+    # Set to true if any ordinary difference should stop the playbook.
+    fail_on_change: false
+
+  tasks:
+    - name: Check required local files
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - "{{ pre_file }}"
+        - "{{ post_file }}"
+        - "{{ comparator }}"
+      register: required_files
+
+    - name: Stop when a required file is missing
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.isreg
+        fail_msg: "Required file does not exist: {{ item.item }}"
+      loop: "{{ required_files.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Build Python comparison command
+      ansible.builtin.set_fact:
+        comparison_argv: >-
+          {{
+            [
+              'python3',
+              comparator,
+              '--pre',
+              pre_file,
+              '--post',
+              post_file,
+              '--output-prefix',
+              report_prefix
+            ]
+            +
+            (['--fail-on-change'] if fail_on_change | bool else [])
+          }}
+
+    - name: Run Junos PRE and POST comparison
+      ansible.builtin.command:
+        argv: "{{ comparison_argv }}"
+      register: comparison
+      changed_when: false
+      failed_when: false
+
+    - name: Display comparison output
+      ansible.builtin.debug:
+        var: comparison.stdout_lines
+
+    - name: Display comparison errors
+      ansible.builtin.debug:
+        var: comparison.stderr_lines
+      when: comparison.stderr | length > 0
+
+    - name: Check generated reports
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - "{{ report_prefix }}.txt"
+        - "{{ report_prefix }}.csv"
+        - "{{ report_prefix }}.json"
+      register: generated_reports
+
+    - name: Display generated report locations
+      ansible.builtin.debug:
+        msg: "Report generated: {{ item.item }}"
+      loop: "{{ generated_reports.results }}"
+      when: item.stat.exists
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Fail playbook when comparison detects a failure
+      ansible.builtin.fail:
+        msg: >-
+          PRE/POST validation failed. Review
+          {{ report_prefix }}.txt and {{ report_prefix }}.csv.
+      when: comparison.rc == 2
+
+    - name: Fail when strict comparison detects differences
+      ansible.builtin.fail:
+        msg: >-
+          PRE and POST outputs are different and fail_on_change is enabled.
+          Review {{ report_prefix }}.txt.
+      when:
+        - fail_on_change | bool
+        - comparison.rc == 1
