@@ -1,0 +1,191 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Junos Pre/Post Report</title><style>
+body{font-family:Segoe UI,Arial,sans-serif;background:#f5f7fa;color:#17202a;margin:0}.wrap{max-width:1400px;margin:auto;padding:28px}.cards{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}.card{background:white;border:1px solid #d9e0e7;border-radius:8px;padding:12px 18px;min-width:120px}.card b{display:block}.card span{font-size:25px}.item{background:white;border:1px solid #d9e0e7;border-left:6px solid #677;margin:10px 0;border-radius:7px;overflow:hidden}.item.pass{border-left-color:#107c10}.item.changed{border-left-color:#d83b01}.item.warning{border-left-color:#ffb900}.item.fail{border-left-color:#a80000}.summary{width:100%;border:0;background:white;padding:14px;text-align:left;display:grid;grid-template-columns:90px 1fr 1fr auto;gap:12px;cursor:pointer;align-items:center}.badge{font-weight:700}.reason{color:#586575}.chev{color:#0067b1}.detail{display:none;padding:0 16px 16px;border-top:1px solid #e3e8ed}.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}pre{background:#101820;color:#e8edf3;padding:12px;border-radius:6px;overflow:auto;white-space:pre-wrap;font:12px Consolas,monospace}.report-actions{display:flex;gap:10px;flex-wrap:wrap}.report-actions button{border:0;border-radius:6px;padding:10px 14px;font-weight:600;cursor:pointer;background:#e8edf3;color:#17202a}.report-actions .print{background:#0067b1;color:white}@media(max-width:900px){.summary,.columns{grid-template-columns:1fr}.chev{display:none}}@media print{body{background:white}.wrap{max-width:none;padding:0}.report-actions{display:none}.detail{display:block!important}.item,.card{break-inside:avoid}pre{background:white;color:#111;border:1px solid #bbb;overflow:visible;overflow-wrap:anywhere}}
+</style></head>
+<body><div class="wrap"><h1>Junos PRE/POST Comparison Report</h1><p>Generated 2026-11-19 09:50:32 WIB</p><div class="cards"><div class="card"><b>PASS</b><span>3</span></div><div class="card"><b>CHANGED</b><span>8</span></div><div class="card"><b>WARNING</b><span>0</span></div><div class="card"><b>FAIL</b><span>0</span></div></div><h2>Brief report</h2>
+<div class="report-actions"><button type="button" onclick="setAllDetails(true)">Expand all details</button><button type="button" onclick="setAllDetails(false)">Collapse all details</button><button type="button" class="print" onclick="window.print()">Print / Save as PDF</button></div>
+<div class="item pass">
+        <button class="summary" onclick="toggle('d1')">
+          <span class="badge">PASS</span><strong>show chassis alarms</strong>
+          <span class="reason">No change detected</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d1" class="detail">
+          <h4>Unified difference</h4><pre>No difference.</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>No alarms currently active</pre></div>
+          <div><h4>POST</h4><pre>No alarms currently active</pre></div></div>
+        </div></div><div class="item pass">
+        <button class="summary" onclick="toggle('d2')">
+          <span class="badge">PASS</span><strong>show system alarms</strong>
+          <span class="reason">No change detected</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d2" class="detail">
+          <h4>Unified difference</h4><pre>No difference.</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>No alarms currently active</pre></div>
+          <div><h4>POST</h4><pre>No alarms currently active</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d3')">
+          <span class="badge">CHANGED</span><strong>show interfaces terse</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d3" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1,5 +1,5 @@
+ Interface               Admin Link Proto    Local                 Remote
+ ge-0/0/0                up    up
+ ge-0/0/0.0              up    up   inet     10.10.10.1/30
+-ge-0/0/1                up    up
+-ge-0/0/1.0              up    up   inet     10.10.20.1/30
++ge-0/0/1                up    down
++ge-0/0/1.0              up    down inet     10.10.20.1/30</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>Interface               Admin Link Proto    Local                 Remote
+ge-0/0/0                up    up
+ge-0/0/0.0              up    up   inet     10.10.10.1/30
+ge-0/0/1                up    up
+ge-0/0/1.0              up    up   inet     10.10.20.1/30</pre></div>
+          <div><h4>POST</h4><pre>Interface               Admin Link Proto    Local                 Remote
+ge-0/0/0                up    up
+ge-0/0/0.0              up    up   inet     10.10.10.1/30
+ge-0/0/1                up    down
+ge-0/0/1.0              up    down inet     10.10.20.1/30</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d4')">
+          <span class="badge">CHANGED</span><strong>show bgp summary</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d4" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1,5 +1,5 @@
+-Groups: 2 Peers: 3 Down peers: 0
++Groups: 2 Peers: 3 Down peers: 1
+ Peer               AS      State
+ 10.10.10.2       65001     Establ
+-10.10.20.2       65002     Establ
++10.10.20.2       65002     Active
+ 192.0.2.20        65010     Establ</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>Groups: 2 Peers: 3 Down peers: 0
+Peer               AS      State
+10.10.10.2       65001     Establ
+10.10.20.2       65002     Establ
+192.0.2.20        65010     Establ</pre></div>
+          <div><h4>POST</h4><pre>Groups: 2 Peers: 3 Down peers: 1
+Peer               AS      State
+10.10.10.2       65001     Establ
+10.10.20.2       65002     Active
+192.0.2.20        65010     Establ</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d5')">
+          <span class="badge">CHANGED</span><strong>show ospf neighbor</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d5" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1,3 +1,2 @@
+ Address          Interface              State           ID
+ 10.10.10.2       ge-0/0/0.0             Full            10.255.0.2
+-10.10.20.2       ge-0/0/1.0             Full            10.255.0.3</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>Address          Interface              State           ID
+10.10.10.2       ge-0/0/0.0             Full            10.255.0.2
+10.10.20.2       ge-0/0/1.0             Full            10.255.0.3</pre></div>
+          <div><h4>POST</h4><pre>Address          Interface              State           ID
+10.10.10.2       ge-0/0/0.0             Full            10.255.0.2</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d6')">
+          <span class="badge">CHANGED</span><strong>show isis adjacency</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d6" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1,3 +1,2 @@
+ Interface             System         L State
+ ge-0/0/0.0            ROUTER-02      2 Up
+-ge-0/0/1.0            ROUTER-03      2 Up</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>Interface             System         L State
+ge-0/0/0.0            ROUTER-02      2 Up
+ge-0/0/1.0            ROUTER-03      2 Up</pre></div>
+          <div><h4>POST</h4><pre>Interface             System         L State
+ge-0/0/0.0            ROUTER-02      2 Up</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d7')">
+          <span class="badge">CHANGED</span><strong>show bfd session</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d7" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1,3 +1,3 @@
+ Address                  State     Interface
+ 10.10.10.2               Up        ge-0/0/0.0
+-10.10.20.2               Up        ge-0/0/1.0
++10.10.20.2               Down      ge-0/0/1.0</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>Address                  State     Interface
+10.10.10.2               Up        ge-0/0/0.0
+10.10.20.2               Up        ge-0/0/1.0</pre></div>
+          <div><h4>POST</h4><pre>Address                  State     Interface
+10.10.10.2               Up        ge-0/0/0.0
+10.10.20.2               Down      ge-0/0/1.0</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d8')">
+          <span class="badge">CHANGED</span><strong>show mpls lsp ingress</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d8" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1,4 +1,4 @@
+ To              From            State     LSPname
+ 10.255.0.2      10.255.0.1      Up        LSP-RTR02
+-10.255.0.3      10.255.0.1      Up        LSP-RTR03
+-Total 2 displayed, Up 2, Down 0
++10.255.0.3      10.255.0.1      Dn        LSP-RTR03
++Total 2 displayed, Up 1, Down 1</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>To              From            State     LSPname
+10.255.0.2      10.255.0.1      Up        LSP-RTR02
+10.255.0.3      10.255.0.1      Up        LSP-RTR03
+Total 2 displayed, Up 2, Down 0</pre></div>
+          <div><h4>POST</h4><pre>To              From            State     LSPname
+10.255.0.2      10.255.0.1      Up        LSP-RTR02
+10.255.0.3      10.255.0.1      Dn        LSP-RTR03
+Total 2 displayed, Up 1, Down 1</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d9')">
+          <span class="badge">CHANGED</span><strong>show route summary</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d9" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1,2 +1,2 @@
+-inet.0: 850220 destinations, 850350 routes (825430 active, 0 holddown, 24920 hidden)
++inet.0: 849800 destinations, 849930 routes (825000 active, 0 holddown, 24930 hidden)
+ inet6.0: 120350 destinations, 120420 routes (118900 active, 0 holddown, 1520 hidden)</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>inet.0: 850220 destinations, 850350 routes (825430 active, 0 holddown, 24920 hidden)
+inet6.0: 120350 destinations, 120420 routes (118900 active, 0 holddown, 1520 hidden)</pre></div>
+          <div><h4>POST</h4><pre>inet.0: 849800 destinations, 849930 routes (825000 active, 0 holddown, 24930 hidden)
+inet6.0: 120350 destinations, 120420 routes (118900 active, 0 holddown, 1520 hidden)</pre></div></div>
+        </div></div><div class="item changed">
+        <button class="summary" onclick="toggle('d10')">
+          <span class="badge">CHANGED</span><strong>show route | count</strong>
+          <span class="reason">Output changed; review the detailed diff</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d10" class="detail">
+          <h4>Unified difference</h4><pre>--- PRE
++++ POST
+@@ -1 +1 @@
+-Count: 970770 lines
++Count: 970350 lines</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>Count: 970770 lines</pre></div>
+          <div><h4>POST</h4><pre>Count: 970350 lines</pre></div></div>
+        </div></div><div class="item pass">
+        <button class="summary" onclick="toggle('d11')">
+          <span class="badge">PASS</span><strong>show system core-dumps</strong>
+          <span class="reason">No change detected</span><span class="chev">Details ▾</span>
+        </button>
+        <div id="d11" class="detail">
+          <h4>Unified difference</h4><pre>No difference.</pre>
+          <div class="columns"><div><h4>PRE</h4><pre>No core dumps found</pre></div>
+          <div><h4>POST</h4><pre>No core dumps found</pre></div></div>
+        </div></div></div>
+<script>function setAllDetails(expanded){document.querySelectorAll('.detail').forEach(e=>e.style.display=expanded?'block':'none')}function toggle(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block'}</script></body></html>

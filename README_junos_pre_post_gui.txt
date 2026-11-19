@@ -27,6 +27,9 @@ Input format:
   <output>
 
 The app compares corresponding command sections and produces an HTML report.
+Use Expand all details or Collapse all details to control the report sections.
+Select Print / Save as PDF to open the browser print dialog; choose Save as PDF
+to create a PDF with all report details included.
 PASS = identical output
 CHANGED = output differs and should be reviewed
 WARNING = changed output from selected counter/time-heavy commands
