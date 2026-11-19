@@ -1,7 +1,11 @@
 # pre-post-compare
-This is the first readme.
+Toos to compare pre and post health check during activity. 
+There are 2 types of tools, CLI and GUI based.
 
-Python use:
+GUI Based: please see other README file.
+
+CLI Based:
+
 python3 junos_pre_post_compare.py \
   --pre pre_activity.txt \
   --post post_activity.txt \
