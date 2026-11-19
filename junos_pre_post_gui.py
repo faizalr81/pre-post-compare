@@ -5,7 +5,7 @@ import html, re, uuid
 from pathlib import Path
 
 app = Flask(__name__)
-REPORT_DIR = Path('/mnt/data')
+REPORT_DIR = Path(__file__).resolve().parent
 
 COMMAND_RE = re.compile(r'^\s*(show\s+.+?)\s*$', re.I)
 MARKER_RE = re.compile(r'^=+\s*COMMAND:\s*(show\s+.*?)\s*=+\s*$', re.I)
